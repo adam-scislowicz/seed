@@ -1,0 +1,5 @@
+.DS_Store
+.devcontainer/vscode-server-extensions-persist
+.terraform
+.terraform.lock*
+terraform.tfstate*

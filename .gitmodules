@@ -1,0 +1,3 @@
+[submodule "summon/amazon/FreeRTOS"]
+	path = summon/amazon/FreeRTOS
+	url = https://github.com/FreeRTOS/FreeRTOS.git

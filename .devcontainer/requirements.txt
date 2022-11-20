@@ -1,0 +1,21 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+awscli
+flake8
+ipykernel
+ipywidgets
+jinja2
+jupyterlab
+markupsafe==2.0.1
+matplotlib
+nbclassic==0.4.5
+nox
+numpy
+pandas
+pre-commit
+pybind11
+scikit-learn
+scipy
+tensorflow
+torch
+torchaudio
+torchvision

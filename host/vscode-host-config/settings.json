@@ -1,0 +1,22 @@
+{
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "editor.foldingMaximumRegions": 16384,
+    "editor.fontFamily": "'JetBrainsMono Nerd Font Mono'",
+    "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font Mono'",
+    "workbench.startupEditor": "none",
+    "jupyter.showOnlyOneTypeOfKernel": false,
+    "redhat.telemetry.enabled": false,
+    "python.formatting.provider": "black",
+    "python.linting.flake8Enabled": true,
+    "black-formatter.importStrategy": "fromEnvironment",
+    "python.formatting.blackArgs": [
+        "--config=pyproject.toml"
+    ],
+    "black-formatter.args": [
+        "--config=pyproject.toml"
+    ],
+    "python.linting.flake8Args": [
+        "--config=pyproject.toml"
+    ],
+    "terminal.integrated.fontWeight": "normal"
+}
