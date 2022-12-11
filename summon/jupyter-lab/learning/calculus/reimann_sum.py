@@ -19,6 +19,8 @@ from matplotlib.patches import Rectangle
 import matplotlib.pyplot as plt
 import numpy as np
 
+nsteps = 50
+
 
 def valueCubed(val):
     return val**3
@@ -29,7 +31,7 @@ fig, ax = plt.subplots()
 ax.set(xlim=(-1, 1), xticks=np.arange(-1, 1.2, 0.2), ylim=(-1, 1), yticks=np.arange(-1, 1.2, 0.2))
 
 # quantized x space
-xqspc = np.linspace(-1, 1, 32)
+xqspc = np.linspace(-1, 1, nsteps)
 yvals = valueCubed(xqspc[:, None])
 
 
@@ -38,7 +40,7 @@ ax.scatter(xqspc, yvals)
 for i, x in enumerate(xqspc):
     if x < 0:
         continue
-    rect = Rectangle((x, 0), ((1 - (-1)) / 32), yvals[i], fill=False)
+    rect = Rectangle((x, 0), ((1 - (-1)) / nsteps), yvals[i], fill=False)
     ax.add_patch(rect)
 
 plt.axhline(0, color="black", linestyle="--", linewidth=1)

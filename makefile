@@ -47,6 +47,8 @@ backup:
 		-cvjf /tmp/seed.tar.bz2 . \
 		| pv -s `find . -not -path "./.devcontainer/vscode-server-extensions-persist/*" | wc -l` \
 		-l > /dev/null
+	@echo "Encrypting..."
+	#@gpg --encrypt --sign -r anonymous@pm.me /tmp/seed.tar.bz2
 	@echo "done. Archive information:"
 	@ls -al /tmp/seed.tar.bz2
 
