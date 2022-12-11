@@ -11,7 +11,7 @@
 10. 8446: The Transport Layer Security (TLS) Protocol Version 1.3
 11. 8986: Segment Routing over IPv6 (SRv6) Network Programming
 
-Standards Organizations & Their Hierarchy:
+Standards Organizations:
 
 The Internet Society (ISOC)
 -> IAB: Internet Architectuee Board

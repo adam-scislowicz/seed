@@ -11,6 +11,7 @@ ENV EMSDK_VERSION 3.1.28
 ENV SOPS_VERSION 3.7.3
 ENV PYTHON_VERSION 3
 ENV MINICONDA_VERSION py38_4.12.0
+ENV MINIZINC_VERSION 2.6.4
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
@@ -29,6 +30,7 @@ RUN apt-get update \
     && apt-add-repository "deb http://ppa.launchpad.net/ansible/ansible/ubuntu focal main" \
     && curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - \
     && echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list \
+    && echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
     && apt-get update \
     && apt-get upgrade -y \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -46,7 +48,10 @@ RUN apt-get update \
     graphviz \
     htop \
     iproute2 \
+    kubeadm \
     kubectl \
+    kubelet \
+    kubernetes-cni \
     libboost-dev \
     libnewlib-arm-none-eabi \
     locales \
@@ -65,6 +70,7 @@ RUN apt-get update \
     python${PYTHON_VERSION}-pip \
     python${PYTHON_VERSION}-venv \
     rsync \
+    slurm-wlm \
     socat \
     strace \
     sudo \
@@ -96,6 +102,11 @@ WORKDIR /home/$USER
 #ENV PICO_SDK_PATH=/home/$USER/pico/pico-sdk
 #RUN curl https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh | SKIP_VSCODE=1 SKIP_UART=1 bash
 RUN curl -L https://nixos.org/nix/install | bash -s -- --no-daemon \
+    && curl -fsSL https://github.com/MiniZinc/MiniZincIDE/releases/download/${MINIZINC_VERSION}/MiniZincIDE-${MINIZINC_VERSION}-bundle-linux-x86_64.tgz \
+        -o /tmp/MiniZincIDE-${MINIZINC_VERSION}-bundle-linux-x86_64.tgz \
+    && tar xvzf /tmp/MiniZincIDE-${MINIZINC_VERSION}-bundle-linux-x86_64.tgz \
+    && echo "alias minizinc=\"LD_LIBRARY_PATH=/home/$USER/MiniZincIDE-${MINIZINC_VERSION}-bundle-linux-x86_64/lib:\$LD_LIBRARY_PATH /home/$USER/MiniZincIDE-${MINIZINC_VERSION}-bundle-linux-x86_64/bin/minizinc\"" \
+        >> ~/.bashrc \
     && git clone https://github.com/emscripten-core/emsdk.git \
     && (cd emsdk; ./emsdk install $EMSDK_VERSION; ./emsdk activate $EMSDK_VERSION) \
     && curl -fsSL https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -o /tmp/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh \
@@ -114,6 +125,7 @@ RUN curl -L https://nixos.org/nix/install | bash -s -- --no-daemon \
     && pip3 install -r /tmp/requirements.txt \
     && cp /tmp/.gitconfig /home/$USER/.gitconfig
 
+#    && /tmp/MiniZincIDE-${MINIZINC_VERSION}-x86_64.AppImage install \
 #    && source ~/.bashrc && jupyter labextension install @jupyter-widgets/jupyterlab-manager ipygany
 
     RUN mkdir /home/user/seed
