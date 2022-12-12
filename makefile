@@ -42,6 +42,7 @@ backup:
 	@echo "Archiving..."
 	@tar --exclude='./.devcontainer/vscode-server-extensions-persist/*' \
 		--exclude='**/.terraform' \
+		--exclude='**/.build' \
 		--exclude='./summon/amazon/*' \
 		--transform s/^\./seed/ \
 		-cvjf /tmp/seed.tar.bz2 . \
