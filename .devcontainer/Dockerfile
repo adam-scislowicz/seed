@@ -12,6 +12,7 @@ ENV SOPS_VERSION 3.7.3
 ENV PYTHON_VERSION 3
 ENV MINICONDA_VERSION py38_4.12.0
 ENV MINIZINC_VERSION 2.6.4
+ENV PICO_SETUP_VERSION 04105e80201754f84cce38ac512558502d77bba6
 
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
@@ -99,8 +100,8 @@ RUN apt-get update \
 
 USER $USER
 WORKDIR /home/$USER
-#ENV PICO_SDK_PATH=/home/$USER/pico/pico-sdk
-#RUN curl https://raw.githubusercontent.com/raspberrypi/pico-setup/master/pico_setup.sh | SKIP_VSCODE=1 SKIP_UART=1 bash
+ENV PICO_SDK_PATH=/home/$USER/pico/pico-sdk
+RUN curl https://raw.githubusercontent.com/raspberrypi/pico-setup/${PICO_SETUP_VERSION}/pico_setup.sh | SKIP_VSCODE=1 SKIP_UART=1 bash
 RUN curl -L https://nixos.org/nix/install | bash -s -- --no-daemon \
     && curl -fsSL https://github.com/MiniZinc/MiniZincIDE/releases/download/${MINIZINC_VERSION}/MiniZincIDE-${MINIZINC_VERSION}-bundle-linux-x86_64.tgz \
         -o /tmp/MiniZincIDE-${MINIZINC_VERSION}-bundle-linux-x86_64.tgz \
@@ -125,7 +126,7 @@ RUN curl -L https://nixos.org/nix/install | bash -s -- --no-daemon \
     && pip3 install -r /tmp/requirements.txt \
     && cp /tmp/.gitconfig /home/$USER/.gitconfig
 
-#    && /tmp/MiniZincIDE-${MINIZINC_VERSION}-x86_64.AppImage install \
+#    && /tmp/MiniZincIDE-${MINIZINC_VERSION}-x86_64.AppImage install
 #    && source ~/.bashrc && jupyter labextension install @jupyter-widgets/jupyterlab-manager ipygany
 
     RUN mkdir /home/user/seed
