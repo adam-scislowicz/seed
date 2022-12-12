@@ -6,7 +6,7 @@ $(makepwd)cloud-services/gcloud/terraform.tfstate:
 		&& exit 0; \
 	terraform init
 
-cloud-gcloud-apply: $(makepwd)cloud-services/gcloud/terraform.tfstate 
+cloud-gcloud-apply: $(makepwd)cloud-services/gcloud/terraform.tfstate
 	@cd $(makepwd)cloud-services/gcloud; \
 	terraform apply -auto-approve
 
@@ -16,7 +16,7 @@ cloud-gcloud-destroy:
 		&& terraform apply -destroy -auto-approve \
 		|| echo "nothing to destroy."
 
-cloud-gcloud-output: $(makepwd)cloud-services/gcloud/terraform.tfstate 
+cloud-gcloud-output: $(makepwd)cloud-services/gcloud/terraform.tfstate
 	@cd $(makepwd)cloud-services/gcloud; \
 	terraform output
 
@@ -26,7 +26,7 @@ $(makepwd)cloud-services/aws/terraform.tfstate:
 		&& exit 0; \
 	terraform init
 
-cloud-aws-apply: $(makepwd)cloud-services/aws/terraform.tfstate 
+cloud-aws-apply: $(makepwd)cloud-services/aws/terraform.tfstate
 	@cd $(makepwd)cloud-services/aws; \
 	terraform apply -auto-approve -if-not-exists
 
@@ -36,7 +36,7 @@ cloud-aws-destroy:
 		&& terraform apply -destroy -auto-approve \
 		|| echo "nothing to destroy."
 
-cloud-aws-output: $(makepwd)cloud-services/aws/terraform.tfstate 
+cloud-aws-output: $(makepwd)cloud-services/aws/terraform.tfstate
 	@cd $(makepwd)cloud-services/gcloud; \
 	terraform output
 

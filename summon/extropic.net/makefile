@@ -6,7 +6,7 @@ $(makepwd)cloud-services/gcloud/terraform.tfstate:
 		&& exit 0; \
 	terraform init
 
-extropic-net-apply: $(makepwd)cloud-services/gcloud/terraform.tfstate 
+extropic-net-apply: $(makepwd)cloud-services/gcloud/terraform.tfstate
 	@cd $(makepwd)cloud-services/gcloud; \
 	terraform apply -auto-approve
 
@@ -16,7 +16,7 @@ extropic-net-destroy:
 		&& terraform apply -destroy -auto-approve \
 		|| echo "nothing to destroy."
 
-extropic-net-output: $(makepwd)cloud-services/gcloud/terraform.tfstate 
+extropic-net-output: $(makepwd)cloud-services/gcloud/terraform.tfstate
 	@cd $(makepwd)cloud-services/gcloud; \
 	terraform output
 

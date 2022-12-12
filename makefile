@@ -25,8 +25,8 @@ backup:
 		| pv -s `find . -not -path "./.devcontainer/vscode-server-extensions-persist/*" | wc -l` \
 		-l > /dev/null
 	@echo "Encrypting..."
-	#@gpg --encrypt --sign -r anonymous@pm.me /tmp/seed_$(now).tar.bz2
+	@gpg -r anonymous -e /tmp/seed_$(now).tar.bz2
 	@echo "done. Archive information:"
-	@ls -al /tmp/seed_$(now).tar.bz2
+	@ls -al /tmp/seed_$(now).tar.bz2 /tmp/seed_$(now).tar.bz2.gpg
 
 .PHONY: overview self-checks backup build-dockerfile docker esymbiote
