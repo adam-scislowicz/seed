@@ -4,3 +4,4 @@
 .terraform.lock*
 terraform.tfstate*
 .build
+.sops.yaml
