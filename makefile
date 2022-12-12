@@ -4,33 +4,33 @@ self-checks:
 	@echo "Running self checks..."
 	pre-commit run -a
 
-cloud-relay/gcloud/.terraform:
-	(cd cloud-relay/gcloud && terraform init)
+summon/esymbiote/cloud-services/gcloud/.terraform:
+	(cd summon/esymbiote/cloud-services/gcloud && terraform init)
 
-cloud-gcloud-apply: cloud-relay/gcloud/.terraform
-	(cd cloud-relay/gcloud && terraform apply -auto-approve)
+cloud-gcloud-apply: summon/esymbiote/cloud-services/gcloud/.terraform
+	(cd summon/esymbiote/cloud-services/gcloud && terraform apply -auto-approve)
 
-cloud-gcloud-destroy: cloud-relay/gcloud/.terraform
-	(cd cloud-relay/gcloud && terraform apply -destroy -auto-approve)
+cloud-gcloud-destroy: summon/esymbiote/cloud-services/gcloud/.terraform
+	(cd summon/esymbiote/cloud-services/gcloud && terraform apply -destroy -auto-approve)
 
-cloud-gcloud-output: cloud-relay/gcloud/.terraform
-	(cd cloud-relay/gcloud && terraform output)
+cloud-gcloud-output: summon/esymbiote/cloud-services/gcloud/.terraform
+	(cd summon/esymbiote/cloud-services/gcloud && terraform output)
 
-cloud-gcloud-tunnel: cloud-relay/gcloud/.terraform
+cloud-gcloud-tunnel: summon/esymbiote/cloud-services/gcloud/.terraform
 	@echo "Starting tunnel... localhost:1080"
-	(cd cloud-relay/gcloud && nohup ./run_tunnel.sh 34.94.126.216 10.168.0.10 >/dev/null 2>&1 & )
+	(cd summon/esymbiote/cloud-services/gcloud && nohup ./run_tunnel.sh 34.94.126.216 10.168.0.10 >/dev/null 2>&1 & )
 
-cloud-relay/aws/.terraform:
-	(cd cloud-relay/aws && terraform init)
+summon/esymbiote/cloud-services/aws/.terraform:
+	(cd summon/esymbiote/cloud-services/aws && terraform init)
 
-cloud-aws-apply: cloud-relay/aws/.terraform
-	(cd cloud-relay/aws && terraform apply -auto-approve)
+cloud-aws-apply: summon/esymbiote/cloud-services/aws/.terraform
+	(cd summon/esymbiote/cloud-services/aws && terraform apply -auto-approve)
 
-cloud-aws-destroy: cloud-relay/aws/.terraform
-	(cd cloud-relay/aws && terraform apply -destroy -auto-approve)
+cloud-aws-destroy: summon/esymbiote/cloud-services/aws/.terraform
+	(cd summon/esymbiote/cloud-services/aws && terraform apply -destroy -auto-approve)
 
-cloud-aws-output: cloud-relay/aws/.terraform
-	(cd cloud-relay/aws && terraform output)
+cloud-aws-output: summon/esymbiote/cloud-services/aws/.terraform
+	(cd summon/esymbiote/cloud-services/aws && terraform output)
 
 build-dockerfile: .devcontainer/Dockerfile
     docker build --build-arg USER=user -t seed:latest .devcontainer
