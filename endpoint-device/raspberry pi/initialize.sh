@@ -3,7 +3,7 @@
 add-apt-repository ppa:anton+/dnscrypt
 
 apt-get update -y
-apt-get install -y dnscrypt-proxy
+apt-get install -y dnscrypt-proxy openvpn
 
 service dnscrypt-proxy start
 

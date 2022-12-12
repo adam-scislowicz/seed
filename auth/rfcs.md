@@ -14,7 +14,7 @@
 Standards Organizations:
 
 The Internet Society (ISOC)
--> IAB: Internet Architectuee Board
+-> IAB: Internet Architecture Board
 -> IETF: Internet Engineering Task Force
 IANA: Internet Assigned Numbers Authority
 ICANN: The Internet Corporation for Assigned Names and Numbers
