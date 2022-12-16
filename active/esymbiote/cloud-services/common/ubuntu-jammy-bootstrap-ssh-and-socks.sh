@@ -3,9 +3,11 @@
 apt update
 apt install -y \
     build-essential \
+    easy-rsa \
     git \
     iptables \
     netcat \
+    openvpn \
     wireguard
 
 cd /root

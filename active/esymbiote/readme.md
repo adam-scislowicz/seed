@@ -10,7 +10,7 @@ A device promoting generative interaction, with both other people and autonomous
 ## Features
 
 * IPv4 and IPv6
-* Ethernet, Wifi, or Cellular Uplinks
+* Ethernet, Wifi, and/or Cellular Uplink
 * edge-to-cloud encrypted tunnels (UDP w/ TCP Fallback)
 * encrypted domain name service (DNS) lookups using dnscrypt
 * additional TLD (.eight) with internal resolver (eSymbiote internal name service)
@@ -29,3 +29,8 @@ A device promoting generative interaction, with both other people and autonomous
 * edge-basic: Raspberry Pi
 * edge-ml-nano: NVidia Jetson Nano
 * edge-ml-hp: NVidia Jetson Xavier
+
+## Form Factors
+
+* Industrial
+* Hobbyist / Prototyping

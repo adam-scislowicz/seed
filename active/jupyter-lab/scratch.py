@@ -9,7 +9,7 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.11.2
 #   kernelspec:
-#     display_name: Python 3.9.6 64-bit
+#     display_name: Python 3.8.10 64-bit
 #     language: python
 #     name: python3
 # ---
@@ -42,5 +42,23 @@ f1, f2 = v.children[:2]
 f1.value = 255
 f2.value = 260
 plt.plot(v.result[0:6000])
+
+# %%
+import numpy as np
+
+
+class Rect:
+    def __init__(self, x, y, w, h):
+        self.loc = np.array([x, y])
+        self.dim = np.array([w, h])
+
+    def __repr__(self):
+        return "(Rect@{},{} {}x{})".format(self.loc[0], self.loc[1], self.dim[0], self.dim[1])
+
+
+r = Rect(3, 3, 2, 2)
+
+print("{}".format(r))
+
 
 # %%

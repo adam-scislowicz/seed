@@ -1,7 +1,7 @@
-include summon/esymbiote/makefile
-include summon/extropic.net/makefile
-
 overview: self-checks
+
+include active/esymbiote/makefile
+include active/extropic.net/makefile
 
 now := $(shell date +"%F_%T_%Z")
 self-checks:
@@ -19,7 +19,7 @@ backup:
 	@tar --exclude='./.devcontainer/vscode-server-extensions-persist/*' \
 		--exclude='**/.terraform' \
 		--exclude='**/.build' \
-		--exclude='./summon/amazon/*' \
+		--exclude='./active/amazon/*' \
 		--transform s/^\./seed/ \
 		-cvjf /tmp/seed_$(now).tar.bz2 . \
 		| pv -s `find . -not -path "./.devcontainer/vscode-server-extensions-persist/*" | wc -l` \

@@ -22,7 +22,7 @@ resource "google_compute_firewall" "allow-ingress-ssh" {
 
   allow {
     protocol = "tcp"
-    ports    = ["22"]
+    ports    = ["22", "443"]
   }
 
   allow {

@@ -19,6 +19,14 @@ I will maintain a list of things that I am balancing here.
 4. Skill Development
     1. CI/CD With simulation based validation. Align this with physics first. Later integrate with physical chemistry and then biophysics. Practically these are jupyter notebooks and supporting resources. The intent is to prototype the multi-model integration marketplace or hub.
 
+## Communications / Pitching
+
+Use fiverr and/or other platforms to produce narrated 3D animations to help present some of the ideas documented here.
+
+Also 'just link' to youtube videos when sufficient quality content already exists. e.g. Constructive/destructive wave interference, etc. For the basis of interferometry.
+
+Depending on rights, may be able to include parts of youtube videos in an integrated video to pitch a concept.
+
 ## eSymbiote
 
 The eSymbiote is an inexpensive (~100$) device that gives you a secure identity with pseudonym generation along with the following initial features:
