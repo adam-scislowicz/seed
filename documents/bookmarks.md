@@ -19,7 +19,7 @@
 5. [Brilliant](https://brilliant.org/): Interactive learning
 
 ## Reference
-1. [Universal Scene Description .usd](https://remedy-entertainment.github.io/USDBook/index.html) 
+1. [Universal Scene Description .usd](https://remedy-entertainment.github.io/USDBook/index.html)
 2. [Wikipedia](https://www.wikipedia.org)
 
 ## Source Code
@@ -37,7 +37,7 @@
 6. [direnv](https://direnv.net/): an extension for your shell. It augments existing shells with a new feature that can load and unload environment variables depending on the current directory.
 7. [Emscripten](https://emscripten.org/): Toolchain for web assembly
 8. [Terraform](https://www.terraform.io/): infrastructure-as-code supporting many online services
-9. [Docker](https://www.docker.com/): Docker is an open platform for developing, shipping, and running applications. 
+9. [Docker](https://www.docker.com/): Docker is an open platform for developing, shipping, and running applications.
 10. [Dive](https://github.com/wagoodman/dive): A console tool for exploring the internals of a docker image, including the layers, efficiency metrics, and more.
 11. [Ansible](https://www.ansible.com/): configuration management and automation as code across many servers or virtual resources
 12. [Python](https://www.python.org/): high-level language supporting multi-service integration
