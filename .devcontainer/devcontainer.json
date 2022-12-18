@@ -10,7 +10,6 @@
 	},
 	"mounts": [
 		"source=${localEnv:HOME}/.gnupg,target=/home/user/.gnupg,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.sops.yaml,target=/workspaces/seed/.sops.yaml,type=bind,consistency=cached"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],

@@ -19,6 +19,7 @@ backup:
 	@tar --exclude='./.devcontainer/vscode-server-extensions-persist/*' \
 		--exclude='**/.terraform' \
 		--exclude='**/.build' \
+		--exclude='**/.secure-staging' \
 		--exclude='./active/amazon/*' \
 		--transform s/^\./seed/ \
 		-cvjf /tmp/seed_$(now).tar.bz2 . \
@@ -29,4 +30,9 @@ backup:
 	@echo "done. Archive information:"
 	@ls -al /tmp/seed_$(now).tar.bz2 /tmp/seed_$(now).tar.bz2.gpg
 
-.PHONY: overview self-checks backup build-dockerfile docker esymbiote
+clean-secure-staging:
+	@echo "Recursively removing all .secure-staging directories:"
+	@find . -name ".secure-staging" -type d -print0 | xargs -0 -I {} sh -c 'echo "\t{}"; /bin/rm -rf "{}"'
+	@echo "done."
+
+.PHONY: overview self-checks backup build-dockerfile clean-secure-staging docker esymbiote

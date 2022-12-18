@@ -4,6 +4,7 @@ flake8
 ipykernel
 ipywidgets
 jinja2
+jinja2-cli
 jupyterlab
 markupsafe==2.0.1
 matplotlib

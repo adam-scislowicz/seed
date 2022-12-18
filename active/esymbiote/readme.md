@@ -16,7 +16,7 @@ A device promoting generative interaction, with both other people and autonomous
 * additional TLD (.eight) with internal resolver (eSymbiote internal name service)
 * multi-site secure networking: edge-to-edge VLAN
 * secure and reliable device-to-device messaging
-* git over SSH server with versioned caching object store
+* git over SSH with versioned caching object store
     * enables efficient big-data pipeline processing
     * supports external storage devices
     * supports secure-backup service
@@ -29,6 +29,8 @@ A device promoting generative interaction, with both other people and autonomous
 * edge-basic: Raspberry Pi
 * edge-ml-nano: NVidia Jetson Nano
 * edge-ml-hp: NVidia Jetson Xavier
+
+Likely AMD and Intel derived devices as well.
 
 ## Form Factors
 
