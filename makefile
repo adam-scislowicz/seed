@@ -30,9 +30,14 @@ backup:
 	@echo "done. Archive information:"
 	@ls -al /tmp/seed_$(now).tar.bz2 /tmp/seed_$(now).tar.bz2.gpg
 
+backup-gpg-metadata:
+	@echo "Exporting..."
+	@./scripts/backup-gpg-metadata.sh
+
 clean-secure-staging:
 	@echo "Recursively removing all .secure-staging directories:"
 	@find . -name ".secure-staging" -type d -print0 | xargs -0 -I {} sh -c 'echo "\t{}"; /bin/rm -rf "{}"'
 	@echo "done."
 
-.PHONY: overview self-checks backup build-dockerfile clean-secure-staging docker esymbiote
+.PHONY: backup build-dockerfile clean-secure-staging docker esymbiote \
+	overview self-checks
