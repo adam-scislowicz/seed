@@ -1,5 +1,5 @@
 #!/bin/sh
 
-COMMENT=$1
+OUTPUTFILE=$1
 
-ssh-keygen -t ed25519 -C"$COMMENT"
+ssh-keygen -t ed25519 -f$OUTPUTFILE

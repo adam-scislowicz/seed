@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash
+#!/usr/sh
 
 NAME=$1
 EMAIL=$2
