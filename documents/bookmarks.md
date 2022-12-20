@@ -49,3 +49,4 @@
 1. [nox](https://nox.thea.codes/): nox is a command-line tool that automates testing in multiple Python environments
 1. [Jupyter](https://jupyter.org/): web-based scientific notebook supporting interactive visualization and multiple language kernels
 1. [jupytext](https://github.com/mwouts/jupytext): Jupyter plugin for better integration with version control systems such as git.
+1. [OCaml](https://ocaml.org): OCaml is a general-purpose, industrial-strength programming language with an emphasis on expressiveness and safety.
