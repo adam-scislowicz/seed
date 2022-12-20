@@ -2,6 +2,10 @@
 
 A device promoting generative interaction, with both other people and autonomous systems.
 
+## Rebranding
+
+Going to rebrand as the extropic networks M1 series of edge routers.
+
 ## Definitions
 
 * symbiote (noun): An organism in a partnership with another such that each profits from their being together.

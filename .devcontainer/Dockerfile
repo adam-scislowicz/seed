@@ -142,7 +142,7 @@ RUN curl -L https://nixos.org/nix/install | bash -s -- --no-daemon \
     && nvm use ${NODEJS_VERSION} \
     && nvm alias default v${NODEJS_VERSION} \
     && echo source /home/$USER/.nvm/nvm.sh >> ~/.bashrc \
-    && npm i -g aws-cdk@${AWS_CDK_VERSION} \
+    && npm i -g aws-cdk@${AWS_CDK_VERSION} typescript \
     && cp /tmp/.gitconfig /home/$USER/.gitconfig \
     && echo echo Load EMSDK: . /home/$USER/emsdk/emsdk_env.sh >> ~/.bashrc \
     && echo echo Load MiniConda: . /home/$USER/miniconda/${MINICONDA_VERSION}/etc/profile.d/conda.sh >> ~/.bashrc

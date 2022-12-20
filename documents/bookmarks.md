@@ -9,6 +9,8 @@
 1. [Terraform Directory of Cloud Providers](https://registry.terraform.io/browse/providers)
 1. [Google Cloud](https://cloud.google.com/)
 1. [AWS](https://aws.amazon.com/)
+    - [CDK](https://aws.amazon.com/cdk/): Infrastructure-as-code for AWS.
+    - [CLI](https://aws.amazon.com/cli/): Interact with AWS services using commands in your command-line shell.
 1. [Microsoft Azure](https://azure.microsoft.com/)
 
 ### Educational Sites
@@ -47,6 +49,10 @@
 1. [Cookiecutter](https://github.com/cookiecutter/cookiecutter): A cross-platform command-line utility that creates projects from project templates, e.g. Python package projects, C projects.
 1. [flake8](https://flake8.pycqa.org/): python linter. tool for style guide enforcement
 1. [nox](https://nox.thea.codes/): nox is a command-line tool that automates testing in multiple Python environments
+1. [nvm](https://github.com/nvm-sh/nvm): nvm is a version manager for node.js, designed to be installed per-user, and invoked per-shell.
+1. [node.js](https://nodejs.org/): an open-source, cross-platform JavaScript runtime environment.
+1. [npm](https://www.npmjs.com): javascript package manager
+1. [typescript](https://www.typescriptlang.org): TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
 1. [Jupyter](https://jupyter.org/): web-based scientific notebook supporting interactive visualization and multiple language kernels
 1. [jupytext](https://github.com/mwouts/jupytext): Jupyter plugin for better integration with version control systems such as git.
 1. [OCaml](https://ocaml.org): OCaml is a general-purpose, industrial-strength programming language with an emphasis on expressiveness and safety.
