@@ -13,7 +13,7 @@ Going to rebrand as the extropic networks M1 series of edge routers.
 
 ## Features
 
-* IPv4 and IPv6
+* IPv4
 * Ethernet, Wifi, and/or Cellular Uplink
 * edge-to-cloud encrypted tunnels (UDP w/ TCP Fallback)
 * encrypted domain name service (DNS) lookups using dnscrypt

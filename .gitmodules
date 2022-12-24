@@ -4,3 +4,9 @@
 [submodule "active/awscookbook/Security"]
 	path = active/awscookbook/Security
 	url = https://github.com/AWSCookbook/Security.git
+[submodule "active/Mastering-AWS-CloudFormation"]
+	path = active/Mastering-AWS-CloudFormation
+	url = https://github.com/PacktPublishing/Mastering-AWS-CloudFormation
+[submodule "active/awscookbook/Networking"]
+	path = active/awscookbook/Networking
+	url = https://github.com/AWSCookbook/Networking

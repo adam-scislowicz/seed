@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ENV UID=1000
 ENV GID=1000
@@ -7,6 +7,7 @@ ARG USER
 ENV AWSCDK_VERSION 2.55.1
 ENV CLANG_VERSION 15
 ENV EMSDK_VERSION 3.1.28
+ENV GITLFS_VERSION 3.3.0
 ENV GO_VERSION 1.19.4
 ENV MINICONDA_VERSION py38_4.12.0
 ENV MINIZINC_VERSION 2.6.4
@@ -37,7 +38,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     && curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add - \
     && echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list \
     && echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
-    && add-apt-repository ppa:avsm/ppa \
     && apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
@@ -69,7 +69,6 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     ninja-build \
     nmap \
     npm \
-    opam \
     openjdk-11-jdk \
     openssh-server \
     openssl \
@@ -94,6 +93,13 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     && sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen \
     && locale-gen \
     && terraform -install-autocomplete \
+    && curl -fsSL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip \
+    && unzip /tmp/awscliv2.zip \
+    && ./aws/install \
+    && curl -fsSL https://github.com/git-lfs/git-lfs/releases/download/v${GITLFS_VERSION}/git-lfs-linux-amd64-v${GITLFS_VERSION}.tar.gz -o \
+        git-lfs-linux-amd64-v${GITLFS_VERSION}.tar.gz \
+    && tar xvzf git-lfs-linux-amd64-v${GITLFS_VERSION}.tar.gz \
+    && (cd git-lfs-${GITLFS_VERSION} && ./install.sh) \
     && curl -fsSL https://rclone.org/install.sh | bash \
     && curl -fsSL https://github.com/mozilla/sops/releases/download/v$SOPS_VERSION/sops_${SOPS_VERSION}_amd64.deb \
         -Lo sops_${SOPS_VERSION}_amd64.deb \

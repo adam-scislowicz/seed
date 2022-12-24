@@ -2,7 +2,8 @@
 
 ## Next
 
-1. Finish the indigogo for the Extropic Networks M1 series launch. Launch using an existing board and enclosure. Brand using something that can be put on an existing enclosure.
+1. Continue the indigogo for the Extropic Networks 'M1 series'? launch. Focus on building the marketing campaign
+1. Come up to speed on AWS solutions architecture work.
 
 ## Later
 
