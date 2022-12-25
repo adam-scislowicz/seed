@@ -8,8 +8,11 @@
 			"USER": "user"
 		}
 	},
+	"runArgs": ["--init"],
 	"mounts": [
 		"source=${localEnv:HOME}/.gnupg,target=/home/user/.gnupg,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.kube,target=/home/user/.kube-host,type=bind,consistency=cached",
+		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
