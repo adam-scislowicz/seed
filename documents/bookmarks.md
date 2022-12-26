@@ -41,6 +41,10 @@
 1. [Emscripten](https://emscripten.org/): Toolchain for web assembly
 1. [Terraform](https://www.terraform.io/): infrastructure-as-code supporting many online services
 1. [Docker](https://www.docker.com/): Docker is an open platform for developing, shipping, and running applications.
+1. [Kubernetes](https://kubernetes.io): open-source system for automating deployment, scaling, and management of containerized applications.
+    - [kubectl](https://kubernetes.io/docs/reference/kubectl/):  command line tool for communicating with a Kubernetes cluster's control plane, using the Kubernetes API.
+1. [minikube](https://minikube.sigs.k8s.io/docs/): minikube quickly sets up a local Kubernetes cluster on macOS, Linux, and Windows.
+1. [kind](https://kind.sigs.k8s.io): a tool for running local Kubernetes clusters using Docker container “nodes”. iow. a multi-node alternative to minikube for local development.
 1. [Dive](https://github.com/wagoodman/dive): A console tool for exploring the internals of a docker image, including the layers, efficiency metrics, and more.
 1. [Ansible](https://www.ansible.com/): configuration management and automation as code across many servers or virtual resources
 1. [Python](https://www.python.org/): high-level language supporting multi-service integration

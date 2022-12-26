@@ -14,5 +14,3 @@ List socket listeners on UDP w/o name lookups
 ```sh
 netstat -anu | grep LISTEN
 ```
-
-

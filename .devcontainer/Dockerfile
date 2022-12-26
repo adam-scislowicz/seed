@@ -59,6 +59,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     graphviz \
     htop \
     iproute2 \
+    iputils-ping \
     kubeadm \
     kubectl \
     kubelet \
@@ -122,6 +123,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+COPY postCreateCommand.sh /usr/local/bin
+
 USER $USER
 WORKDIR /home/$USER
 ENV PATH="/home/${USER}/.nvm/versions/node/v${NODEJS_VERSION}/bin/:${PATH}"
@@ -156,7 +159,7 @@ RUN curl -L https://nixos.org/nix/install | bash -s -- --no-daemon \
     && echo source /home/$USER/.nvm/nvm.sh >> ~/.bashrc \
     && npm i -g aws-cdk@${AWS_CDK_VERSION} typescript \
     && cp /tmp/.gitconfig /home/$USER/.gitconfig \
-    && echo sudo chown user.user /var/run/docker.sock >> ~/.bashrc \
+    && echo /usr/local/bin/postCreateCommand.sh >> ~/.bashrc \
     && echo echo Load EMSDK: . /home/$USER/emsdk/emsdk_env.sh >> ~/.bashrc \
     && echo echo Load MiniConda: . /home/$USER/miniconda/${MINICONDA_VERSION}/etc/profile.d/conda.sh >> ~/.bashrc
 

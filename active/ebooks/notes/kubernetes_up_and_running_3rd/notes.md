@@ -60,3 +60,5 @@ host host.docker.internal
 ```
 host.docker.internal has address 192.168.65.2
 ```
+
+kubectl commands for docker users: https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/
