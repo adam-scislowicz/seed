@@ -9,7 +9,7 @@
 #       format_version: '1.3'
 #       jupytext_version: 1.11.2
 #   kernelspec:
-#     display_name: Python 3.8.10 64-bit
+#     display_name: Python 3.10.6 64-bit
 #     language: python
 #     name: python3
 # ---

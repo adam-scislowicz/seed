@@ -1,8 +1,15 @@
 # Bookmarks
 
 ## Online Services
-
+1. [Toggl Track](https://track.toggl.com/timer): Time tracking & reporting
+1. [Proton email](https://mail.proton.me/)
+1. [Google email](https://www.gmail.com/)
+1. [Github:Repositories](https://github.com/adam-scislowicz?tab=repositories)
 1. [Zotero](https://www.zotero.org/): Personal digital library and RSS reader
+1. [Stripe](https://dashboard.stripe.com/test/dashboard): Payment processor
+1. [Meta Business Suite](https://business.facebook.com/latest/)
+1. [Google Analytics](https://analytics.google.com/)
+1. [Google Ads](https://ads.google.com/home/#!/)
 
 
 ### Cloud Providers
@@ -13,6 +20,7 @@
     - [CLI](https://aws.amazon.com/cli/): Interact with AWS services using commands in your command-line shell.
 1. [Microsoft Azure](https://azure.microsoft.com/)
 
+
 ### Educational Sites
 1. [Kahn Academy](https://www.khanacademy.org/): Free high quality education videos and quizzes
 1. [Coursera](https://www.coursera.org/): High quality courses on many topics
@@ -20,9 +28,19 @@
 1. [Wolfram Alpha](https://www.wolframalpha.com/): Symbolic mathematics, data analytics, and search and a digital notebook
 1. [Brilliant](https://brilliant.org/): Interactive learning
 
+
 ## Reference
+1. [O'Reilly Learning Library](https://learning.oreilly.com/home/)
 1. [Universal Scene Description .usd](https://remedy-entertainment.github.io/USDBook/index.html)
 1. [Wikipedia](https://www.wikipedia.org)
+1. [AWS CloudFormation Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html)
+1. [AWS Resources and their properties](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
+
+
+## Project Indexes
+1. [CNCF Graduated & Incubating Projects](https://www.cncf.io/projects/): (CNCF) Cloud Native Compute Foundation
+1. [Linux Foundation Projects](https://www.cncf.io/projects/)
+
 
 ## Source Code
 1. [obs-studio](https://github.com/obsproject/obs-studio): OBS Studio - Free and open source software for live streaming and screen recording
@@ -30,8 +48,8 @@
 1. [textual-markdown](https://github.com/willmcgugan/textual-markdown): Terminal based markdown browser
 1. [squash compression API and benchmark](https://quixdb.github.io/squash-benchmark/): The Squash library is an abstraction layer for compression algorithms, making it trivial to switch between them.
 
-## Tools
 
+## Tools
 1. [Git](https://git-scm.com/): distributed version control system designed to handle everything from small to very large projects with speed and efficiency
 1. [pre-commit](https://pre-commit.com/): A platform, including an open marketplace of plugins for managing and maintaining multi-language pre-commit hooks.
 1. [nix](https://nixos.org/): package management featuring reproducibility supporting declarative syntax. There is also NixOS (same link) which is a linux distribution utilizing nix.

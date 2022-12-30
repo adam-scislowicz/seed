@@ -8,6 +8,12 @@ self-checks:
 	@echo "Running self checks..."
 	pre-commit run -a
 
+# extropic-net DNS via gcloud
+# other services are present via AWS
+cloud-up: extropic-net-apply
+
+cloud-down: extropic-net-destroy
+
 build-dockerfile: .devcontainer/Dockerfile
     docker build --build-arg USER=user -t seed:latest .devcontainer
 
@@ -40,4 +46,5 @@ clean-secure-staging:
 	@echo "done."
 
 .PHONY: backup build-dockerfile clean-secure-staging docker esymbiote \
+	online-presence-up online-presence-down \
 	overview self-checks

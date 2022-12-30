@@ -1,4 +1,4 @@
-# AWS CLI Snippets
+active/kind-k8s/launch.sh# AWS CLI Snippets
 
 ## Query your ARN
 ```sh
@@ -529,7 +529,7 @@ curl $DOMAIN_NAME
 Note that a VPC is a regional construct.
 ```sh
 VPC_ID=$(aws ec2 create-vpc --cidr-block 10.10.0.0/16 \
-    --tag-specifications 
+    --tag-specifications
 'ResourceType=vpc,Tags=[{Key=Name,Value=AWSCookbook201}]' \
     --output text --query Vpc.VpcId)
 ```

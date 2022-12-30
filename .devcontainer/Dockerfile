@@ -147,6 +147,7 @@ RUN curl -L https://nixos.org/nix/install | bash -s -- --no-daemon \
     && mkdir -p /home/$USER/go/$GO_VERSION \
     && tar -C /home/$USER/go/$GO_VERSION -xf /tmp/go.tar.gz --strip-components=1 \
     && echo export USER=$USER >> ~/.bashrc \
+    && echo export GOPATH=/home/$USER/go >> ~/.bashrc \
     && echo export PATH=/home/$USER/go/$GO_VERSION/bin:\$PATH >> ~/.bashrc \
     && echo source /home/$USER/.nix-profile/etc/profile.d/nix.sh >> ~/.bashrc \
     && echo eval \"\$\(direnv hook bash\)\" >> ~/.bashrc \
