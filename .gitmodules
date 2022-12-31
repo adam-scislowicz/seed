@@ -2,11 +2,11 @@
 	path = active/amazon/FreeRTOS
 	url = https://github.com/FreeRTOS/FreeRTOS.git
 [submodule "active/awscookbook/Security"]
-	path = active/ebooks/supplementals/awscookbook/Security
+	path = active/third-party/book-supplementals/awscookbook/Security
 	url = https://github.com/AWSCookbook/Security.git
 [submodule "active/Mastering-AWS-CloudFormation"]
-	path = active/ebooks/supplementals/Mastering-AWS-CloudFormation
+	path = active/third-party/book-supplementals/Mastering-AWS-CloudFormation
 	url = https://github.com/PacktPublishing/Mastering-AWS-CloudFormation
 [submodule "active/awscookbook/Networking"]
-	path = active/ebooks/supplementals/awscookbook/Networking
+	path = active/third-party/book-supplementals/awscookbook/Networking
 	url = https://github.com/AWSCookbook/Networking

@@ -57,6 +57,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     git \
     google-cloud-cli \
     graphviz \
+    groff \
     htop \
     iproute2 \
     iputils-ping \

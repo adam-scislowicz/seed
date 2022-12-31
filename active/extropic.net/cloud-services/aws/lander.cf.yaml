@@ -1,19 +1,77 @@
-
 AWSTemplateFormatVersion: "2010-09-09"
 Description: extropic.net lander
+
+
+Parameters:
+
+  LanderBucketName:
+    Type: String
+
+
 Metadata:
   cfn-lint:
     regions:
-      - us-west-1
-      - us-west-2
-      - us-east-1
-Resources:
- Bucket:
-        Type: AWS::S3::Bucket
-        Properties:
-            AccessControl: Private
-            BucketName: extropic-networks-example-private-bucket
-            Tags:
-                - Key: description
-                  Value: "Extropic Networks Example Private S3 Bucket"
+     - us-west-1
+     - us-west-2
+     - us-east-1
 
+
+Resources:
+
+  CloudFrontOriginIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: 'origin identity'
+
+  LanderBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: Private
+      BucketName: !Ref LanderBucketName
+      Tags:
+        - Key: description
+          Value: "Extropic Networks Example Private S3 Bucket"
+
+  LanderBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref LanderBucketName
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${CloudFrontOriginIdentity}'
+            Action: 's3:GetObject'
+            Resource: !Join ['', ['arn:aws:s3:::', !Ref LanderBucketName, '/*']]
+
+  PublicLanderDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Origins:
+          - DomainName: !Join [ ".", [!Ref LanderBucketName, 's3', !Ref 'AWS::Region', !Ref 'AWS::URLSuffix' ]]
+            Id: !Join [ "-", ['S3', !Ref LanderBucketName]]
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${CloudFrontOriginIdentity}'
+        Enabled: 'true'
+        Comment: Some comment
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+          TargetOriginId: !Join [ "-", ['S3', !Ref LanderBucketName]]
+          ForwardedValues:
+            QueryString: 'false'
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: 'true'
+
+
+Outputs:
+
+  LanderBucketName:
+    Value: !Ref LanderBucketName

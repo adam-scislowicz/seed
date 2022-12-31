@@ -1,16 +1,21 @@
 
 AWSTemplateFormatVersion: "2010-09-09"
 Description: extropic.net core aws
+
+
 Metadata:
   cfn-lint:
     regions:
-      - us-west-1
-      - us-west-2
-      - us-east-1
+     - us-west-1
+     - us-west-2
+     - us-east-1
 # ignore-checks Example Below
 #    ignore-checks:
 #      - W2001
+
+
 Resources:
+
   MyIamRole:
     Type: AWS::IAM::Role
     Properties:

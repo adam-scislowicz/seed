@@ -310,7 +310,7 @@ Here is an example parameter file in JSON format:
 Then following shell command used to specify the stack be created utilizing the parameters as specified in a parameter file.
 
 ```sh
-$ aws cloudformaiton create-stack \
+$ aws cloudformation create-stack \
     --stack-name core \
     --template-body file://core.yaml \
     --parameters file://testing.json
@@ -874,4 +874,9 @@ In addition to create-stack, update-stack, and change-set based deployments you 
 ```sh
 $ aws cloudformation deploy --stack-name foo --template-file bar
 ```
-on page 127
+
+When deploying a cloudformation stack, if you will be creating IAM resources you will need to add `--capabilities CAPABILITY_IAM` to the command line.
+
+Note that the pre-commit action aws-cloudformation/cfn-lint is implemented and documented here: https://github.com/aws-cloudformation/cfn-lint
+
+I'm on page 127
