@@ -366,7 +366,7 @@ An example of a Conditional
 
 ```yaml
 Parameters:
-    Env: 
+    Env:
         Type: String
         Default: test
         AllowedValues: [ "test", "prod" ]
@@ -391,7 +391,7 @@ alternatively **InstanceType** could be specifed as follows:
 ```yaml
 # ...
             InstanceType:
-                Fn::If: 
+                Fn::If:
                     - IsProd
                     - m5.large
                     - t3.micro
@@ -414,7 +414,7 @@ The following example will force a snapshot to be taken just before deleting a r
 
 ```yaml
 # ...
-Resources: 
+Resources:
     VeryImportantDb:
         Type: AWS::RDS::Instance
         DeletionPolicy: Snapshot
@@ -603,8 +603,6 @@ Resources:
                     # The rest of the IAM role properties...
 ```
 
-started at 11:26
-
 Example combining pseudo parameters with an intrinsic function:
 
 Note that the double dash '- -' syntax within the YAML example below denotes the creation of a list as follows:
@@ -656,7 +654,7 @@ Resources:
     EcsTaskDefinition:
         Type: AWS::ECS::TaskDefinition
             Properties:
-            # Some properties... 
+            # Some properties...
             ContainerDefinition:
                 - Name: mycontainer
                 # Some container properties...
@@ -714,7 +712,7 @@ AWS::Partition will return the name of the partition being used. That standard p
 
 While static parameters can be passed using a static file in JSON format, ot via the command line. Dynamic parameters can be stored and referenced by using the SSM Parameter Store, and/or the Secrets Manager.
 
-Both the parameter store and secrets manager support versioning. 
+Both the parameter store and secrets manager support versioning.
 
 Here is an example of utilizing the SSM parameter store:
 
@@ -812,3 +810,68 @@ Resources:
 ### References
 
 1. [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+
+## Chapter 3 - validation, linting, and deployment
+
+Template validation is normally run before deployment but can be run independently with the following command:
+
+```sh
+$ aws cloudformation validate-template --template-body file://some_filename.yaml
+```
+
+Note cfn-lint custom rule creation is documented on page 113.
+
+### Change Sets
+
+Instead of directly updating a stack, you can first produce a change set, review it, and then execute the change set if you so choose after review.
+
+The following command will produce a change set, given the current account status and the stack state specified in the template and parameters files:
+```sh
+$ aws cloudformation create-change-set \
+    --stack-name core \
+    --change-set-name our-change-set \
+    --template-body file://core_full.yaml \
+    --parameters file://testing.json \
+    --capabilities CAPABILITY_IAM
+```
+
+This will, upon success, output something similar to the following:
+```
+{
+    "Id": "arn:aws:cloudformation:REGION:ACCT_ID:changeSet/our-change-set/bd04aeb3-386b-44d7-a25c-5fe626c24aed",
+    "StackId": "arn:aws:cloudformation:REGION:ACCT_ID:stack/core/00697420-1123-11ea-9d40-02433c861a1c"
+}
+```
+
+Given the above output, you can describe the change-set for your review as follows:
+```sh
+$ aws cloudformation describe-change-set \
+    --change-set-name arn:aws:cloudformation:REGION:ACCT_ID:changeSet/our-change-set/bd04aeb3-386b-44d7-a25c-5fe626c24aed
+```
+
+Which will produce output similar to the following:
+```json
+{
+    "Changes": [
+        {
+            "Type": "Resource",
+            "ResourceChange": {
+                "Action": "Add",
+                "LogicalResourceId": "AdminRole",
+                "ResourceType": "AWS::IAM::Role",
+                "Scope": [],
+                "Details": [] }
+        },
+# ...
+```
+
+If the change-set looks good and you would like to execute it, you can use the following command:
+```sh
+$ aws cloudformation execute-change-set --change-set-name our-change-set --stack-name core
+```
+
+In addition to create-stack, update-stack, and change-set based deployments you can use the command deploy which will create a stack if it does not exist, or otherwise update it. Note however that deploy does not support parameter files.
+```sh
+$ aws cloudformation deploy --stack-name foo --template-file bar
+```
+on page 127

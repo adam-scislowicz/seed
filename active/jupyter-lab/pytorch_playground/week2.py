@@ -15,6 +15,7 @@
 # ---
 
 import torch
+
 print(torch.__version__)
 x = torch.rand(2, 3)
 print(x)
@@ -26,19 +27,21 @@ import numpy as np
 
 nsteps = 50
 
+
 def loss_y_zero(val):
-    return -1*np.log(1-val)
+    return -1 * np.log(1 - val)
 
 
 def loss_y_one(val):
-    return -1*np.log(val)
+    return -1 * np.log(val)
+
 
 fig, ax = plt.subplots()
 
 ax.set(xlim=(0, 1), xticks=np.arange(0, 1.2, 0.2), ylim=(0, 3), yticks=np.arange(0, 3.2, 0.2))
 
 # quantized x space
-xqspc = np.linspace(0.001, 0.999, nsteps) # avoid log(0)
+xqspc = np.linspace(0.001, 0.999, nsteps)  # avoid log(0)
 y0vals = loss_y_zero(xqspc[:, None])
 y1vals = loss_y_one(xqspc[:, None])
 
@@ -46,11 +49,13 @@ y1vals = loss_y_one(xqspc[:, None])
 ax.scatter(xqspc, y0vals)
 ax.scatter(xqspc, y1vals)
 
-#plt.axhline(0, color="black", linestyle="--", linewidth=1)
-#plt.axvline(0, color="black", linestyle="--", linewidth=1)
-plt.title('Logistic loss aka cross-entropy loss:\n$ l(y, \sigma(z)) = -ylog(\sigma(z)-(1-y)log(1-\sigma(z))) $')
-plt.xlabel('$ \sigma(z) $')
-plt.ylabel('$ l(y, \sigma(z)) $')
+# plt.axhline(0, color="black", linestyle="--", linewidth=1)
+# plt.axvline(0, color="black", linestyle="--", linewidth=1)
+plt.title(
+    "Logistic loss aka cross-entropy loss:\n$ l(y, \sigma(z)) = -ylog(\sigma(z)-(1-y)log(1-\sigma(z))) $"
+)
+plt.xlabel("$ \sigma(z) $")
+plt.ylabel("$ l(y, \sigma(z)) $")
 plt.show()
 # -
 

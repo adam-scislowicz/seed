@@ -21,8 +21,14 @@ repos:
     - id: black
       language_version: python3.10
       args: [--config=pyproject.toml]
+
 #-   repo: https://gitlab.com/pycqa/flake8
 #    rev: 5.0.4
 #    hooks:
 #    - id: flake8
 #      args: ['--config=pyproject.toml','jupyter-lab']
+
+-   repo: https://github.com/aws-cloudformation/cfn-lint
+    rev: v0.72.5
+    hooks:
+    -   id: cfn-lint-rc

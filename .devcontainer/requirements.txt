@@ -1,10 +1,12 @@
 --extra-index-url https://download.pytorch.org/whl/cpu
+cfn-lint
 flake8
 ipykernel
 ipywidgets
 jinja2==3.1.2
 jinja2-cli
 jupyterlab
+jupytext
 markupsafe==2.1.1
 matplotlib
 nbclassic==0.4.8

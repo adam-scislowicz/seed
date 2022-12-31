@@ -11,8 +11,6 @@
 
 ### Outline Section
 
-started at 15:38
-
 This section in temporary.
 
 #### Creation Patterns
@@ -36,7 +34,3 @@ The singleton pattern refers to a situation where you wan't just one instance of
 **Intent**: Provide an interface for creating families of related or dependent objects without specifying their concrete class.
 
 **Conventions**: Often the suffix `Kit` is used to denote an Abstract Factory type class. e.g. UIWidgetKit.
-
-ended 16:21
-
-

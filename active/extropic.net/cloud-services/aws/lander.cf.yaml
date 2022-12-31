@@ -1,0 +1,19 @@
+
+AWSTemplateFormatVersion: "2010-09-09"
+Description: extropic.net lander
+Metadata:
+  cfn-lint:
+    regions:
+      - us-west-1
+      - us-west-2
+      - us-east-1
+Resources:
+ Bucket:
+        Type: AWS::S3::Bucket
+        Properties:
+            AccessControl: Private
+            BucketName: extropic-networks-example-private-bucket
+            Tags:
+                - Key: description
+                  Value: "Extropic Networks Example Private S3 Bucket"
+
