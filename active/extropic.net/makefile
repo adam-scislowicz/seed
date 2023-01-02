@@ -9,11 +9,6 @@ $(extropicwd)cloud-services/gcloud/terraform.tfstate:
 extropic-net-apply: $(extropicwd)cloud-services/gcloud/terraform.tfstate
 	cd $(extropicwd)cloud-services/aws; \
 		aws cloudformation create-stack \
-			--stack-name extropic-net-core \
-			--template-body file://core.cf.yaml \
-			--capabilities CAPABILITY_IAM ||:;
-	cd $(extropicwd)cloud-services/aws; \
-		aws cloudformation create-stack \
 			--stack-name extropic-net-lander \
 			--template-body file://lander.cf.yaml \
 			--parameters file://parameters.json ||:
@@ -28,17 +23,46 @@ extropic-net-destroy:
 		|| echo "nothing to destroy.";
 	cd $(extropicwd)cloud-services/aws; \
 		aws cloudformation delete-stack \
-			--stack-name extropic-net-core ||:;\
+			--stack-name extropic-net-iam ||:;\
 	cd $(extropicwd)cloud-services/aws; \
 		aws cloudformation delete-stack \
 			--stack-name extropic-net-lander ||:;
-	
 
-#aws cloudformation validate-template --template-body file://lander.cf.yaml;
-
-extropic-net-output: $(extropicwd)cloud-services/gcloud/terraform.tfstate
+extropic-net-info: $(extropicwd)cloud-services/gcloud/terraform.tfstate
 	@cd $(extropicwd)cloud-services/gcloud; \
-	terraform output
+		terraform output ||: ; \
+	cd $(extropicwd)cloud-services/aws; \
+		aws cloudformation list-stack-resources \
+			--stack-name extropic-net-iam ||:;
+	cd $(extropicwd)cloud-services/aws; \
+		aws cloudformation describe-stacks --stack-name extropic-net-iam ||: ; \
+	cd $(extropicwd)cloud-services/aws; \
+		aws cloudformation list-stack-resources \
+			--stack-name extropic-net-lander ||:;
+
+$(extropicwd)xnetworks-controld/xnetworks-controld:
+	cd $(extropicwd)xnetworks-controld; \
+		go mod download \
+		&& go get xnetworks-controld \
+		&& go build -buildvcs=false
+
+xnetworks-controld: $(extropicwd)xnetworks-controld/xnetworks-controld
+
+extropic-net-iam: $(extropicwd)xnetworks-controld/xnetworks-controld
+	cd $(extropicwd)cloud-services/aws; \
+		aws cloudformation create-stack \
+			--stack-name extropic-net-iam \
+			--template-body file://iam.cf.yaml \
+			--capabilities CAPABILITY_IAM ||:;
+	cd $(extropicwd)cloud-services/aws; \
+		aws cloudformation list-stack-resources \
+			--stack-name extropic-net-iam ||:;
+	#aws sts assume-role --role-arn $ROLE_ARN \
+    #	--role-session-name semiautonomous-extropic-networks
+
+clean::
+	cd $(extropicwd)xnetworks-controld; \
+		rm -f go.sum xnetworks-controld || :; 
 
 .PHONY: $(extropicwd)cloud-services/gcloud/terraform.tfstate \
-	extropic-net-apply extropic-net-destroy extropic-net-output
+	clean extropic-net-apply extropic-net-destroy extropic-net-iam extropic-net-info

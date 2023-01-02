@@ -28,7 +28,12 @@ repos:
 #    - id: flake8
 #      args: ['--config=pyproject.toml','jupyter-lab']
 
--   repo: https://github.com/aws-cloudformation/cfn-lint
-    rev: v0.72.5
-    hooks:
+- repo: https://github.com/aws-cloudformation/cfn-lint
+  rev: v0.72.5
+  hooks:
     -   id: cfn-lint-rc
+
+#- repo: https://github.com/golangci/golangci-lint
+#  rev: v1.50.1
+#  hooks:
+#    - id: golangci-lint

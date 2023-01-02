@@ -39,3 +39,5 @@ If one could utilize linguistic analysis to annotate conversations and weight sp
 * flow-state
 * group flow renegotiation: communications or interactions promoting change or demonstrating dissatisfaction with the current state of things
 * TBD...
+
+## See the TODO section atop notes.md

@@ -1,11 +1,8 @@
 # Bedtime Ritual
 
-## Next
+## See the TODO section atop notes.md
 
-1. Continue the indigogo for the Extropic Networks 'M1 series'? launch. Focus on building the marketing campaign
-1. Come up to speed on AWS solutions architecture work.
-
-## Later
+## Misc Notes
 
 1. Look into use of Google's PDKs (Process Design Kits) to bootstrap a FAB process or FAB output validation. The latter allowing one to operate as a fabless semiconductor company but still strongly validate the fabrication process.
     1. [90nm SkyWater](https://github.com/google/sky90fd-pdk)

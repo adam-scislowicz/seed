@@ -1,0 +1,57 @@
+// Use extension based architecture to support specific
+// cloud types:
+// - Cloudformation
+// - Terraform
+// - etc...
+
+// This is a distributed application. As such async commands result
+// in an update to PAXOS or RAFT protected state. e.g  to
+// etcd and/or a transactional database.
+
+service serviceManagement {
+    rpc ListCloudStacks() returns (CloudStacks) {}
+    rpc RegisterCloudStackAsync(StackDescriptor) returns (XNetworksCommandAsyncDescriptor) {}
+    rpc DeregisterCloudStackAsync(StackName.value) return (XNetworksCommandAsyncDescriptor) {}
+    rpc EnableCloudStackAsync(StackName.value) returns (XNetworksCommandAsyncDescriptor) {}
+    rpc DisableCloudStackAsync(StackName.value) returns (XNetworksCommandAsyncDescriptor) {}
+}
+
+message StackName {
+    string value = 1;
+}
+
+message StackDescriptor {
+    StackName.value stackName = 1;
+    string templateObjectPath = 2; // object path: s3:// or similar
+    string templateParamsPath = 3; // object path: 
+}
+
+enum XNetworksCommandAsyncStatus {
+    XNETWORKS_ASYNC_COMMAND_INPROGRESS = 0;
+    XNETWORKS_ASYNC_COMMAND_QUEUE_FULL = 1;
+    XNETWORKS_ASYNC_COMMAND_OOM        = 2;
+    XNETWORKS_ASYNC_COMMAND_MALFORMED  = 3;
+}
+
+message XNetworksCommandAsyncDescriptor {
+    XNetworksCommandAsyncStatus status;
+    uint32 commandId;
+}
+
+enum CloudStackStatus {
+    CFSTACK_STATUS_UNKNOWN = 0;
+    CFSTACK_STATUS_INITIALIZING = 1;
+    CFSTACK_STATUS_RUNNING = 2;
+    CFSTACK_STATUS_ROLLING_BACK = 3;
+    CFSTACK_STATUS_DELETE_IN_PROGRESS = 4;
+    CFSTACK_STATUS_DELETED = 5;
+}
+
+message CloudStack {
+    string name;
+    CloudStackStatus status;
+}
+
+message CloudStacks {
+    repeated CloudStack;
+}

@@ -157,7 +157,7 @@ aws iam simulate-principal-policy \
 ```
 `<ACTION>` example: ec2:CreateInternetGateway
 
-Will produce output wimilar to the following:
+Will produce output similar to the following:
 ```json
 {
   "EvaluationResults": [
@@ -252,7 +252,7 @@ aws iam attach-role-policy --role-name <SSM_MANAGED_INSTANCE_ROLE_NAME> \
      --policy-arn arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
 ```
 
-You can create an instance profile using thge following awscli command:
+You can create an instance profile using the following awscli command:
 ```sh
 aws iam create-instance-profile \
      --instance-profile-name <INSTANCE_PROFILE_NAME>

@@ -45,14 +45,16 @@ Resources:
               AWS: !Sub 'arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${CloudFrontOriginIdentity}'
             Action: 's3:GetObject'
             Resource: !Join ['', ['arn:aws:s3:::', !Ref LanderBucketName, '/*']]
+    DependsOn: [ LanderBucket, CloudFrontOriginIdentity ]
 
   PublicLanderDistribution:
     Type: AWS::CloudFront::Distribution
     Properties:
       DistributionConfig:
+        DefaultRootObject: "index.html"
         Origins:
           - DomainName: !Join [ ".", [!Ref LanderBucketName, 's3', !Ref 'AWS::Region', !Ref 'AWS::URLSuffix' ]]
-            Id: !Join [ "-", ['S3', !Ref LanderBucketName]]
+            Id: !Ref LanderBucketName
             S3OriginConfig:
               OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${CloudFrontOriginIdentity}'
         Enabled: 'true'
@@ -61,7 +63,7 @@ Resources:
           AllowedMethods:
             - GET
             - HEAD
-          TargetOriginId: !Join [ "-", ['S3', !Ref LanderBucketName]]
+          TargetOriginId: !Ref LanderBucketName
           ForwardedValues:
             QueryString: 'false'
             Cookies:
@@ -69,6 +71,7 @@ Resources:
           ViewerProtocolPolicy: redirect-to-https
         ViewerCertificate:
           CloudFrontDefaultCertificate: 'true'
+    DependsOn: [ LanderBucket, CloudFrontOriginIdentity ]
 
 
 Outputs:

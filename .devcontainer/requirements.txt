@@ -25,3 +25,4 @@ tensorflow
 torch
 torchaudio
 torchvision
+tqdm

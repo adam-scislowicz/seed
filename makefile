@@ -45,6 +45,8 @@ clean-secure-staging:
 	@find . -name ".secure-staging" -type d -print0 | xargs -0 -I {} sh -c 'echo "\t{}"; /bin/rm -rf "{}"'
 	@echo "done."
 
-.PHONY: backup build-dockerfile clean-secure-staging docker esymbiote \
+clean:: clean-secure-staging
+
+.PHONY: backup build-dockerfile clean clean-secure-staging docker esymbiote \
 	online-presence-up online-presence-down \
 	overview self-checks

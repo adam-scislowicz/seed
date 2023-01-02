@@ -1,0 +1,93 @@
+
+AWSTemplateFormatVersion: "2010-09-09"
+Description: extropic.net core aws
+
+
+Metadata:
+  cfn-lint:
+    regions:
+     - us-west-1
+     - us-west-2
+     - us-east-1
+# ignore-checks Example Below
+#    ignore-checks:
+#      - W2001
+
+
+Resources:
+
+  ExtropicNetworksCloudformationRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+             - sts:AssumeRole
+            Principal:
+              AWS: !Ref "AWS::AccountId"
+            Sid: "AllowRoleAssume"
+
+  ExtropicNetworksCloudformationManagedPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: IamRoleOperations
+            Effect: Allow
+            Action:
+              - iam:CreateRole
+              - iam:DeleteRole
+            Resource: "arn:aws:iam::970354268847:role/*"
+          - Sid: S3NamespaceRestrictedOperations
+            Effect: Allow
+            Action:
+              - s3:GetBucketTagging
+              - s3:CreateBucket
+              - s3:ListBucket
+              - s3:GetBucketPolicy
+              - s3:PutBucketTagging
+              - s3:DeleteObject
+              - s3:DeleteBucket
+              - s3:DeleteBucketPolicy
+              - s3:PutObject
+              - s3:GetObject
+              - s3:PutBucketPolicy
+            Resource: "arn:aws:s3:::extropic-networks-*"
+          - Sid: S3GlobalOperations
+            Effect: Allow
+            Action:
+              - s3:ListAllMyBuckets
+            Resource: "arn:aws:s3:::*"
+          - Sid: GlobalOperations
+            Effect: Allow
+            Action:
+              - cloudformation:CancelUpdateStack
+              - cloudformation:ContinueUpdateRollback
+              - cloudformation:ListStackResources
+              - cloudformation:UpdateStack
+              - cloudformation:ListStacks
+              - cloudformation:CreateStack
+              - cloudformation:DeleteStack
+              - cloudfront:ListCloudFrontOriginAccessIdentities
+              - cloudfront:DeleteCloudFrontOriginAccessIdentity
+              - cloudfront:CreateCloudFrontOriginAccessIdentity
+              - cloudfront:GetDistribution
+              - cloudfront:GetCloudFrontOriginAccessIdentity
+              - cloudfront:UpdateDistribution
+              - cloudfront:UpdateCloudFrontOriginAccessIdentity
+              - cloudfront:UntagResource
+              - cloudfront:GetCloudFrontOriginAccessIdentityConfig
+              - cloudfront:TagResource
+              - cloudfront:CreateDistribution
+              - cloudfront:ListDistributions
+              - cloudfront:DeleteDistribution-
+            Resource: "*"
+      Roles: [ !Ref ExtropicNetworksCloudformationRole ]
+
+Outputs:
+
+  ExtropicNetworksCloudformationRoleArn:
+    Value: !Ref ExtropicNetworksCloudformationRole

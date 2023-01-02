@@ -16,6 +16,7 @@ ENV NEXTFLOW_VERSION 22.10.4
 ENV NODEJS_VERSION 18.12.1
 ENV NVM_VERSION v0.39.2
 ENV PICO_SETUP_VERSION 04105e80201754f84cce38ac512558502d77bba6
+ENV PROTOLINT_VERSION 0.42.2
 ENV PYTHON_VERSION 3
 ENV RUST_VERSION 1.65.0
 ENV SOPS_VERSION 3.7.3
@@ -102,10 +103,14 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     && curl -fsSL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip \
     && unzip /tmp/awscliv2.zip \
     && ./aws/install \
-    && curl -fsSL https://github.com/git-lfs/git-lfs/releases/download/v${GITLFS_VERSION}/git-lfs-linux-amd64-v${GITLFS_VERSION}.tar.gz -o \
-        git-lfs-linux-amd64-v${GITLFS_VERSION}.tar.gz \
+    && curl -fsSL https://github.com/git-lfs/git-lfs/releases/download/v${GITLFS_VERSION}/git-lfs-linux-amd64-v${GITLFS_VERSION}.tar.gz \
+        -o git-lfs-linux-amd64-v${GITLFS_VERSION}.tar.gz \
     && tar xvzf git-lfs-linux-amd64-v${GITLFS_VERSION}.tar.gz \
     && (cd git-lfs-${GITLFS_VERSION} && ./install.sh) \
+    && curl -fsSL https://github.com/yoheimuta/protolint/releases/download/v${PROTOLINT_VERSION}/protolint_${PROTOLINT_VERSION}_Linux_x86_64.tar.gz \
+        -o protolint_${PROTOLINT_VERSION}_Linux_x86_64.tar.gz \
+    && tar xvzf protolint_${PROTOLINT_VERSION}_Linux_x86_64.tar.gz \
+    && cp protoc-gen-protolint protolint /usr/local/bin \
     && curl -fsSL https://rclone.org/install.sh | bash \
     && curl -fsSL https://github.com/mozilla/sops/releases/download/v$SOPS_VERSION/sops_${SOPS_VERSION}_amd64.deb \
         -Lo sops_${SOPS_VERSION}_amd64.deb \
@@ -148,12 +153,12 @@ RUN curl -L https://nixos.org/nix/install | bash -s -- --no-daemon \
     && mkdir -p /home/$USER/go/$GO_VERSION \
     && tar -C /home/$USER/go/$GO_VERSION -xf /tmp/go.tar.gz --strip-components=1 \
     && echo export USER=$USER >> ~/.bashrc \
-    && echo export GOPATH=/home/$USER/go >> ~/.bashrc \
+    && echo export GOPATH=/home/$USER/go/packages >> ~/.bashrc \
+    && echo export GOROOT=/home/$USER/go/$GO_VERSION >> ~/.bashrc \
     && echo export PATH=/home/$USER/go/$GO_VERSION/bin:\$PATH >> ~/.bashrc \
     && echo source /home/$USER/.nix-profile/etc/profile.d/nix.sh >> ~/.bashrc \
     && echo eval \"\$\(direnv hook bash\)\" >> ~/.bashrc \
     && echo eval \"\$\(starship init bash\)\" >> ~/.bashrc \
-    && pip3 install -r /tmp/requirements.txt \
     && . /home/$USER/.nvm/nvm.sh \
     && nvm install ${NODEJS_VERSION} \
     && nvm use ${NODEJS_VERSION} \
@@ -164,6 +169,8 @@ RUN curl -L https://nixos.org/nix/install | bash -s -- --no-daemon \
     && echo /usr/local/bin/postCreateCommand.sh >> ~/.bashrc \
     && echo echo Load EMSDK: . /home/$USER/emsdk/emsdk_env.sh >> ~/.bashrc \
     && echo echo Load MiniConda: . /home/$USER/miniconda/${MINICONDA_VERSION}/etc/profile.d/conda.sh >> ~/.bashrc
+
+RUN pip3 --timeout=600 install -r /tmp/requirements.txt
 
 #    && /tmp/MiniZincIDE-${MINIZINC_VERSION}-x86_64.AppImage install
 #    && source ~/.bashrc && jupyter labextension install @jupyter-widgets/jupyterlab-manager ipygany
