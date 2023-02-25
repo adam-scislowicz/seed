@@ -62,7 +62,7 @@ extropic-net-iam: $(extropicwd)xnetworks-controld/xnetworks-controld
 
 clean::
 	cd $(extropicwd)xnetworks-controld; \
-		rm -f go.sum xnetworks-controld || :; 
+		rm -f go.sum xnetworks-controld || :;
 
 .PHONY: $(extropicwd)cloud-services/gcloud/terraform.tfstate \
 	clean extropic-net-apply extropic-net-destroy extropic-net-iam extropic-net-info

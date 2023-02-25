@@ -20,10 +20,15 @@ message StackName {
     string value = 1;
 }
 
+enum StackType {
+    XNETWORKS_STACKTYPE_CLOUDFORMATION = 0;
+    XNETWORKS_STACKTYPE_TERRAFORM      = 1;
+}
+
 message StackDescriptor {
     StackName.value stackName = 1;
-    string templateObjectPath = 2; // object path: s3:// or similar
-    string templateParamsPath = 3; // object path: 
+    StackType       stackType = 2;
+    string templateBundlePath = 3; // object path s3://, etc. bundle contents are stack type specific
 }
 
 enum XNetworksCommandAsyncStatus {
@@ -39,12 +44,12 @@ message XNetworksCommandAsyncDescriptor {
 }
 
 enum CloudStackStatus {
-    CFSTACK_STATUS_UNKNOWN = 0;
-    CFSTACK_STATUS_INITIALIZING = 1;
-    CFSTACK_STATUS_RUNNING = 2;
-    CFSTACK_STATUS_ROLLING_BACK = 3;
+    CFSTACK_STATUS_UNKNOWN            = 0;
+    CFSTACK_STATUS_INITIALIZING       = 1;
+    CFSTACK_STATUS_RUNNING            = 2;
+    CFSTACK_STATUS_ROLLING_BACK       = 3;
     CFSTACK_STATUS_DELETE_IN_PROGRESS = 4;
-    CFSTACK_STATUS_DELETED = 5;
+    CFSTACK_STATUS_DELETED            = 5;
 }
 
 message CloudStack {

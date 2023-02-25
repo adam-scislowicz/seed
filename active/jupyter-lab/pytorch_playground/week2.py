@@ -123,7 +123,8 @@ nsteps = 50
 
 
 def simple_function(val):
-    return 1+ np.power(val, 2)
+    return 1 + np.power(val, 2)
+
 
 fig, ax = plt.subplots()
 
@@ -140,9 +141,7 @@ ax.scatter(xval, yval)
 
 plt.axhline(0, color="black", linestyle="--", linewidth=1)
 plt.axvline(0, color="black", linestyle="--", linewidth=1)
-plt.title(
-    "Gradient Descent of a Simple Function"
-)
+plt.title("Gradient Descent of a Simple Function")
 plt.xlabel("$ b $")
 plt.ylabel("$ f(b) $")
 plt.show()
@@ -158,6 +157,7 @@ import torch.nn.functional as F
 from torchvision import datasets, transforms
 from tqdm.notebook import tqdm
 
+
 class MNIST_Logistic_Regression(nn.Module):
     def __init__(self):
         super().__init__()
@@ -166,9 +166,14 @@ class MNIST_Logistic_Regression(nn.Module):
     def forward(self, x):
         return self.lin(x)
 
+
 # Load the data
-mnist_train = datasets.MNIST(root="./datasets", train=True, transform=transforms.ToTensor(), download=True)
-mnist_test = datasets.MNIST(root="./datasets", train=False, transform=transforms.ToTensor(), download=True)
+mnist_train = datasets.MNIST(
+    root="./datasets", train=True, transform=transforms.ToTensor(), download=True
+)
+mnist_test = datasets.MNIST(
+    root="./datasets", train=False, transform=transforms.ToTensor(), download=True
+)
 train_loader = torch.utils.data.DataLoader(mnist_train, batch_size=100, shuffle=True)
 test_loader = torch.utils.data.DataLoader(mnist_test, batch_size=100, shuffle=False)
 
@@ -180,13 +185,13 @@ model = MNIST_Logistic_Regression()
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
 
-# Iterate through train set minibatchs 
+# Iterate through train set minibatchs
 for images, labels in tqdm(train_loader):
     # Zero out the gradients
     optimizer.zero_grad()
-    
+
     # Forward pass
-    x = images.view(-1, 28*28)
+    x = images.view(-1, 28 * 28)
     y = model(x)
     loss = criterion(y, labels)
     # Backward pass
@@ -198,16 +203,16 @@ correct = 0
 total = len(mnist_test)
 
 with torch.no_grad():
-    # Iterate through test set minibatchs 
+    # Iterate through test set minibatchs
     for images, labels in tqdm(test_loader):
         # Forward pass
-        x = images.view(-1, 28*28)
+        x = images.view(-1, 28 * 28)
         y = model(x)
-        
+
         predictions = torch.argmax(y, dim=1)
         correct += torch.sum((predictions == labels).float())
-    
-print('Test accuracy: {}'.format(correct/total))
+
+print("Test accuracy: {}".format(correct / total))
 
 # %%
 # Lab 2B_MultiLayer_Perceptron_Assignment
@@ -221,10 +226,14 @@ from torchvision import datasets, transforms
 from tqdm.notebook import tqdm
 import random
 
-random.seed(0) # make PSRN reproducible
+random.seed(0)  # make PSRN reproducible
 
-mnist_train = datasets.MNIST(root="./datasets", train=True, transform=transforms.ToTensor(), download=True)
-mnist_test = datasets.MNIST(root="./datasets", train=False, transform=transforms.ToTensor(), download=True)
+mnist_train = datasets.MNIST(
+    root="./datasets", train=True, transform=transforms.ToTensor(), download=True
+)
+mnist_test = datasets.MNIST(
+    root="./datasets", train=False, transform=transforms.ToTensor(), download=True
+)
 
 mnist_train_n = len(mnist_train)
 mnist_test_n = len(mnist_test)
@@ -234,21 +243,21 @@ print("DEBUG: Number of MNIST test examples: {}".format(mnist_test_n))
 
 
 # Pick some random examples to get a feel for the data: Show some images and pixel value histograms
-n_samples=4
+n_samples = 4
 fig, ax = plt.subplots(2, n_samples, figsize=(20, 5))
 for i in range(n_samples):
     randidx = random.randrange(0, mnist_train_n)
     image, label = mnist_train[randidx]
-    image = image.reshape([28,28])
+    image = image.reshape([28, 28])
     print("DEBUG: mnist_train[{}]: {} -> {}".format(randidx, image.shape, label))
-    ax[0,i].imshow(image.view(28,28), cmap='gray')
-    
-    bins=20
-    hist = torch.histc(image, bins = bins, min = 0, max = 1)
+    ax[0, i].imshow(image.view(28, 28), cmap="gray")
+
+    bins = 20
+    hist = torch.histc(image, bins=bins, min=0, max=1)
     x = range(bins)
-    ax[1,i].bar(x, hist, align='center')
-    ax[1,i].set_title('histogram')
-    ax[1,i].set_yscale('log')
+    ax[1, i].bar(x, hist, align="center")
+    ax[1, i].set_title("histogram")
+    ax[1, i].set_yscale("log")
 fig.tight_layout()
 
 # Setup a loader to handle minibatching
@@ -256,32 +265,31 @@ train_loader = torch.utils.data.DataLoader(mnist_train, batch_size=100, shuffle=
 test_loader = torch.utils.data.DataLoader(mnist_test, batch_size=100, shuffle=False)
 
 # Get data one mini-batch at a time
-#data_train_iter = iter(train_loader)
-#images, labels = data_train_iter.next()
+# data_train_iter = iter(train_loader)
+# images, labels = data_train_iter.next()
 
-W1 = torch.randn(784, 500)/np.sqrt(784)
+W1 = torch.randn(784, 500) / np.sqrt(784)
 W1.requires_grad_()
-W2 = torch.randn(500, 10)/np.sqrt(500)
+W2 = torch.randn(500, 10) / np.sqrt(500)
 W2.requires_grad_()
 print("DEBUG: W1.shape: {}".format(W1.shape))
 print("DEBUG: W2.shape: {}".format(W2.shape))
 
-optimizer = torch.optim.SGD([W1,W2], lr=0.1)
+optimizer = torch.optim.SGD([W1, W2], lr=0.1)
 
 for images, labels in tqdm(train_loader):
     optimizer.zero_grad()
-    
+
     # Forward pass
-    x = images.view(-1, 28*28)
+    x = images.view(-1, 28 * 28)
     w1o = F.relu(torch.matmul(x, W1))
     y = torch.matmul(w1o, W2)
-    
+
     cross_entropy = F.cross_entropy(y, labels)
-    
+
     # Backward pass
     cross_entropy.backward()
     optimizer.step()
-
 
 
 # %%
@@ -293,6 +301,7 @@ import torch.nn.functional as F
 from torchvision import datasets, transforms
 from tqdm.notebook import tqdm
 
+
 class MNIST_Multilayer_Perceptron(nn.Module):
     def __init__(self):
         super().__init__()
@@ -300,13 +309,18 @@ class MNIST_Multilayer_Perceptron(nn.Module):
         self.fc2 = nn.Linear(500, 10)
 
     def forward(self, x):
-        x = x.view(-1, 28*28)
+        x = x.view(-1, 28 * 28) # in-place reshape
         x = F.relu(self.fc1(x))
         return self.fc2(x)
 
+
 # Load the data
-mnist_train = datasets.MNIST(root="./datasets", train=True, transform=transforms.ToTensor(), download=True)
-mnist_test = datasets.MNIST(root="./datasets", train=False, transform=transforms.ToTensor(), download=True)
+mnist_train = datasets.MNIST(
+    root="./datasets", train=True, transform=transforms.ToTensor(), download=True
+)
+mnist_test = datasets.MNIST(
+    root="./datasets", train=False, transform=transforms.ToTensor(), download=True
+)
 train_loader = torch.utils.data.DataLoader(mnist_train, batch_size=100, shuffle=True)
 test_loader = torch.utils.data.DataLoader(mnist_test, batch_size=100, shuffle=False)
 
@@ -318,11 +332,11 @@ model = MNIST_Multilayer_Perceptron()
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
 
-# Iterate through train set minibatchs 
+# Iterate through train set minibatchs
 for images, labels in tqdm(train_loader):
     # Zero out the gradients
     optimizer.zero_grad()
-    
+
     # Forward pass
     x = images
     y = model(x)
@@ -336,16 +350,14 @@ correct = 0
 total = len(mnist_test)
 
 with torch.no_grad():
-    # Iterate through test set minibatchs 
+    # Iterate through test set minibatchs
     for images, labels in tqdm(test_loader):
         # Forward pass
         x = images
         y = model(x)
-        
+
         predictions = torch.argmax(y, dim=1)
         correct += torch.sum((predictions == labels).float())
 
 print(model)
-print('Test accuracy: {}'.format(correct/total))
-
-# %%
+print("Test accuracy: {}".format(correct / total))

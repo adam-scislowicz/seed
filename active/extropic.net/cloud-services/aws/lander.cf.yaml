@@ -9,6 +9,7 @@ Parameters:
 
 
 Metadata:
+
   cfn-lint:
     regions:
      - us-west-1

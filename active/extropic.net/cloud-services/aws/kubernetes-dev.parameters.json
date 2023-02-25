@@ -1,0 +1,18 @@
+[
+    {
+       "ParameterKey": "EKSIAMRoleName",
+       "ParameterValue": "ExtropicKubernetesDevServiceRole"
+    },
+    {
+        "ParameterKey": "ClusterName",
+        "ParameterValue": "ExtropicKubernetesCluster"
+    },
+    {
+        "ParameterKey": "KeyName",
+        "ParameterValue": "websrvr"
+    },
+    {
+        "ParameterKey": "NodeGroupName",
+        "ParameterValue": "ExtropicKubernetesClusterNodeGroup"
+    }
+]

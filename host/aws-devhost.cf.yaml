@@ -1,0 +1,173 @@
+# TODO
+#
+# 1. IAM service role so the EC2 instance can access the S3 bucket with the script
+#    and data referenced by the UserData VM initialization script
+# 1 .Add the S3 bucket and put the contents of the bootstrsp directory or archive to it.
+#
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Remote Development Instance
+
+
+Metadata:
+
+  cfn-lint:
+    regions:
+     - us-west-1
+     - us-west-2
+     - us-east-1
+    config:
+      ignore_checks:
+        - W3005
+
+
+Parameters:
+  VpcBlock:
+    Type: String
+    Default: 192.168.0.0/24
+    Description: The CIDR range for the VPC
+
+
+Mappings:
+    RegionMap:
+        us-west-1:
+            UBUNTUJAMMYX64: ami-06bb3ee01d992f30d
+
+
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcBlock
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+
+  InternetGateway:
+    Type: "AWS::EC2::InternetGateway"
+  
+  VPCGatewayAttachment:
+    Type: "AWS::EC2::VPCGatewayAttachment"
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref VPC
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+        - 0
+        - Fn::GetAZs: !Ref AWS::Region
+      CidrBlock:
+        Ref: VpcBlock
+      VpcId:
+        Ref: VPC
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+
+  PublicRoute:
+    DependsOn: VPCGatewayAttachment
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet
+      RouteTableId: !Ref PublicRouteTable
+
+  NatGateway:
+    DependsOn:
+    - NatGatewayEIP
+    - PublicSubnet
+    - VPCGatewayAttachment
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId: !GetAtt 'NatGatewayEIP.AllocationId'
+      SubnetId: !Ref PublicSubnet
+ 
+  NatGatewayEIP:
+    DependsOn:
+    - VPCGatewayAttachment
+    Type: 'AWS::EC2::EIP'
+    Properties:
+      Domain: vpc
+
+  SSHOnlySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SSH Only Access
+      GroupName: ssh-only
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        -
+          IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  InstanceBootstrapBucket:
+    Type: AWS::EC2::Bucket
+    Properties:
+      BucketName: ExtropicNetInternal-InstanceBootstrapS3Bucket
+      AccessControl: Private
+
+  InstanceBootstrapBucketAccessPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref InstanceBootstrapBucket
+      PolicyDocument:
+        Statement:
+          - Action:
+            - "arn:aws:s3:::*"
+            Effect: Allow
+            Resources:
+              - !Sub "arn:aws:s3:::${InstanceBootstrapBucket}
+              - !Sub "arn:aws:s3:::${InstanceBootstrapBucket}/*
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+  # replace the principal above with a service resource such that the EC2 instance below
+  # has read access to this bucket.
+
+  DevMachineInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      BlockDeviceMappings:
+        -
+          DeviceName: "/dev/sda1"
+          Ebs:
+            VolumeSize: 300
+            VolumeType: gp2
+      InstanceType: t3.xlarge
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", UBUNTUJAMMYX64]
+      NetworkInterfaces:
+        - DeviceIndex: '0'
+          AssociatePublicIpAddress: True
+          DeleteOnTermination: True
+          SubnetId: !Ref PublicSubnet
+          GroupSet:
+            - !Ref SSHOnlySecurityGroup
+      KeyName: clouddev
+      UserData:
+        Fn::Base64:
+          #!/bin/sh
+          cd /tmp
+          curl -fsSL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
+          unzip awscliv2.zip
+          ./aws/install
+
+
+Outputs:
+  DevMachinePublicIP:
+    Value: !GetAtt DevMachineInstance.PublicIp
+    Export:
+      Name: !Sub "${AWS::StackName}-DevMachinePublicIP"
+
+  InstanceBootstrapBucket:
+    Value: !Ref InstanceBootstrapBucket 

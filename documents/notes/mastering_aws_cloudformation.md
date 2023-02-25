@@ -244,7 +244,7 @@ The network stack will have the following parameters:
 13. Database subnet 3 CIDR range
 14. Environment
 
-All of the above paraeters will be of type **String**.
+All of the above parameters will be of type **String**.
 
 example:
 
@@ -261,7 +261,7 @@ Parameters:
 # ...
 ```
 
-An exampole from the **Resource** section:
+An example from the **Resource** section:
 
 ```yaml
 # core.yaml
@@ -288,7 +288,7 @@ Resources:
 # ...
 ```
 
-Paramerters can be specified on the command line or passed using a parameter file. The parameter file is JSON formatted.
+Parameters can be specified on the command line or passed using a parameter file. The parameter file is JSON formatted.
 
 Here is an example parameter file in JSON format:
 
@@ -327,7 +327,7 @@ $ aws cloudformation create-stack \
     ParameterKey="VpcCid",ParameterValue="10.0.0.0/16"
 ```
 
-List type paramerters values specified on the command line are to be delimited as follows:
+List type parameters values specified on the command line are to be delimited as follows:
 
 ```
 ParameterKey=List,ParameterValue=Element1\\,Element2
@@ -503,7 +503,7 @@ Outputs:
 # ...
 ```
 
-The webteir stack importing aka refencing the core stack exported values.
+The webteir stack importing aka referencing the core stack exported values.
 
 ```yaml
 # webtier.yaml
@@ -757,7 +757,7 @@ Outputs:
 # ...
 ```
 
-Parameters can also be referenced directly from the Resources section utilizing Jinja formatting. See the following exmaple:
+Parameters can also be referenced directly from the Resources section utilizing Jinja formatting. See the following example:
 
 ```yaml
 Resources:
@@ -880,3 +880,5 @@ When deploying a cloudformation stack, if you will be creating IAM resources you
 Note that the pre-commit action aws-cloudformation/cfn-lint is implemented and documented here: https://github.com/aws-cloudformation/cfn-lint
 
 I'm on page 127
+
+AWS includes services for version control, build management, and pipeline automation, these are CodeCommit, CodeBuild, and CodePipeline respectively.

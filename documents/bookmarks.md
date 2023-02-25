@@ -33,6 +33,7 @@
 1. [O'Reilly Learning Library](https://learning.oreilly.com/home/)
 1. [Universal Scene Description .usd](https://remedy-entertainment.github.io/USDBook/index.html)
 1. [Wikipedia](https://www.wikipedia.org)
+1. [US National Library of Medicine: UMLS Terminology Services](https://uts.nlm.nih.gov/uts/login): UMLS: Unified Medical Language System
 1. [AWS CloudFormation Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-instance.html)
 1. [AWS Resources and their properties](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
 
@@ -77,4 +78,3 @@
 1. [typescript](https://www.typescriptlang.org): TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
 1. [Jupyter](https://jupyter.org/): web-based scientific notebook supporting interactive visualization and multiple language kernels
 1. [jupytext](https://github.com/mwouts/jupytext): Jupyter plugin for better integration with version control systems such as git.
-1. [OCaml](https://ocaml.org): OCaml is a general-purpose, industrial-strength programming language with an emphasis on expressiveness and safety.

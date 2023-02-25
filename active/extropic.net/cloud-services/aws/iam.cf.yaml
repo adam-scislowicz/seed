@@ -4,6 +4,7 @@ Description: extropic.net core aws
 
 
 Metadata:
+
   cfn-lint:
     regions:
      - us-west-1
